@@ -1,0 +1,28 @@
+.calc {
+    max-width: 400px;
+    margin: auto;
+    background-color: #111;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.display {
+    flex: 1 0 100%;
+    background-color: #8f5656;
+    color: white;
+    padding: 20px;
+    text-align: right;
+    border-radius: 5px;
+}
+
+.buttons {
+    flex: 1 0 21%;
+    margin: 5px;
+    height: 100px;
+    background-color: aqua;
+    padding-top: 20px;
+    padding: 10px;
+}
