@@ -42,4 +42,11 @@ button {
     padding-top: 20px;
     padding-bottom: 20px;
     height: auto;
+    transition: all 0.07s;
+}
+
+.clicked {
+    transform: scale(1.1);
+    border-color: #242424;
+    box-shadow: 0 0 10px #242424;
 }
