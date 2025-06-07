@@ -32,11 +32,12 @@ button {
     padding: 2%;
     font-size: 25px;
     margin: 2px;
-    transition: all 0.05s;
+    transition: all 0.1s;
     width: 60px;
     height: 60px;
     margin: 5px;
     flex: none;
+    box-shadow: 3px 3px 3px #000000;
 }
 
 .buttons {
@@ -67,8 +68,9 @@ button {
 }
 
 .clicked {
-    transform: scale(0.6);
-    border-color: #7e7e7e;
-    box-shadow: 0 0 10px #rgba(0, 0, 0, 0.5) inset;
+    transform: scale(0.9);
+    background-color: #202020;
+    border-color: #6b6b6b;
+    box-shadow: 3px 3px 10px #rgba(0, 0, 0, 0.5) inset;
 }
 
