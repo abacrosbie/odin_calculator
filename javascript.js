@@ -17,7 +17,7 @@ function multFunct(num1, num2) {
 //divide
 function divFunct(num1, num2) {
     if (num2 === 0) {
-        return ">.< Error, don't break the universe.";
+        return ">.< Error";
     }
     else if (num1 === 0) {
         return 0;
@@ -53,9 +53,10 @@ let firstNum = null;
 let secondNum = null;
 let operator = null;
 
-const display = document.querySelector('.display');
+const display = document.getElementById('display');
 
 function numberToDisplay(value) {
+    if (currentDisplay.length >= 10) return;
     currentDisplay += value;
     display.value = currentDisplay;
 }
@@ -88,10 +89,39 @@ function removeTransition(e) {
 
 buttons.forEach(button => button.addEventListener('transitionend', removeTransition));
 
+const numberButtons = ['bZero','bOne','bTwo','bThree','bFour','bFive','bSix','bSeven','bEight','bNine','bDecimal'];
+document.getElementById('bPlus').addEventListener('click', () => chosenOperator('+'));
+document.getElementById('bMinus').addEventListener('click', () => chosenOperator('-'));
+document.getElementById('bMultiply').addEventListener('click', () => chosenOperator('*'));
+document.getElementById('bDivide').addEventListener('click', () => chosenOperator('/'));
+numberButtons.forEach(id => {
+    const button = document.getElementById(id);
+    button.addEventListener('click', () => {
+        numberToDisplay(button.textContent);
+    });
+});
 
+document.getElementById('bEqual').addEventListener('click', () => {
+    if (firstNum !== null && operator !== null && currentDisplay !== '') {
+        secondNum = parseFloat(currentDisplay);
+        const result = operate(firstNum, secondNum, operator);
+            .toString()
+            .slice(0, 10);
+        display.value = result;
+        currentDisplay = result.toString();
+        firstNum = null;
+        operator = null;
+    }
+});
 
+document.getElementById('bClear').addEventListener('click', () => {
+    currentDisplay = '';
+    firstNum = null;
+    operator = null;
+    display.value = '';
+});
 
-
-
-
-console.log(operate(100, 0, '/'));
+document.getElementById('bDelete').addEventListener('click', () => {
+    currentDisplay = currentDisplay.slice(0, -1);
+    display.value = currentDisplay;
+});
