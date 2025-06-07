@@ -1,10 +1,10 @@
-.logo {
+body {
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
 }
 
 .calc {
-    max-width: 500px;
+    max-width: 400px;
     margin: auto;
     background-color: #111;
     padding: 20px;
@@ -33,20 +33,39 @@ button {
     background-color: #777777;
     padding: 2%;
     font-size: 25px;
-    height: 50px;
-    width: 50px;
     margin: 2px;
     transition: all 0.05s;
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    flex: none;
 }
 
 .buttons {
     flex: 1 0 80%;
     margin: 5px;
-    height: 100px;
     border-radius: 10px;
     background-color: rgb(83, 83, 83);
     padding: 30px;
-    height: auto;
+}
+
+.row{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.row button.bDouble{
+    width: calc(2 * 60px + 10px);
+}
+
+.bOperator {
+    background-color: #ff9900;
+    color: black;
+}
+
+.bFunctional {
+    background-color: #82cdff;
 }
 
 .clicked {
@@ -54,3 +73,4 @@ button {
     border-color: #7e7e7e;
     box-shadow: 0 0 10px #6b6b6b inset;
 }
+
