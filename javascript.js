@@ -48,6 +48,20 @@ function operate(n1, n2, operatorFunc) {
     return result
 }
 
+const buttons = document.querySelectorAll('button');
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        buttons.forEach(btn => btn.classList.remove('clicked'));
+        button.classList.add('clicked');
+    });
+});
+
+function removeTransition(e) {
+    if(e.propertyName !== 'transform') return;
+    this.classList.remove('clicked');
+}
+
+buttons.forEach(button => button.addEventListener('transitionend', removeTransition));
 
 
 console.log(operate(100, 0, '/'));
