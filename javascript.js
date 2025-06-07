@@ -48,6 +48,31 @@ function operate(n1, n2, operatorFunc) {
     return result
 }
 
+let currentDisplay = '';
+let firstNum = null;
+let secondNum = null;
+let operator = null;
+
+const display = document.querySelector('.display');
+
+function numberToDisplay(value) {
+    currentDisplay += value;
+    display.value = currentDisplay;
+}
+
+function chosenOperator(operatorButton) {
+    if (currentDisplay === '') return;
+    if (firstNum === null) {
+        firstNum = parseFloat(currentDisplay);
+    } else if (operator) {
+        firstNum = operate(firstNum, parseFloat(currentDisplay), operator);
+        display.value = firstNum;
+    }
+    operator = operatorButton;
+    currentDisplay = '';
+}
+
+
 const buttons = document.querySelectorAll('button');
 buttons.forEach(button => {
     button.addEventListener('click', () => {
@@ -62,6 +87,11 @@ function removeTransition(e) {
 }
 
 buttons.forEach(button => button.addEventListener('transitionend', removeTransition));
+
+
+
+
+
 
 
 console.log(operate(100, 0, '/'));
