@@ -52,13 +52,30 @@ let currentDisplay = '';
 let firstNum = null;
 let secondNum = null;
 let operator = null;
+let resultJustDisplayed = false;
 
 const display = document.getElementById('display');
 
-function numberToDisplay(value) {
-    if (currentDisplay.length >= 10) return;
-    currentDisplay += value;
+function setDisplay(str) {
+    let resultStr = str.toString();
+    if (resultStr.length > 10) {
+        if (!isNaN(resultStr)) {
+            resultStr = Number(resultStr).toExponential(5);
+        }
+    }
+    currentDisplay = str.slice(0, 10);
     display.value = currentDisplay;
+}
+
+
+function numberToDisplay(value) {
+    if(resultJustDisplayed) {
+        currentDisplay = '';
+        resultJustDisplayed = false;
+    }
+    if (value === '.' && currentDisplay.includes('.')) return;
+    if (currentDisplay.length >= 10) return;
+    setDisplay(currentDisplay + value);
 }
 
 function chosenOperator(operatorButton) {
@@ -67,7 +84,7 @@ function chosenOperator(operatorButton) {
         firstNum = parseFloat(currentDisplay);
     } else if (operator) {
         firstNum = operate(firstNum, parseFloat(currentDisplay), operator);
-        display.value = firstNum;
+        setDisplay(firstNum.toString());
     }
     operator = operatorButton;
     currentDisplay = '';
@@ -104,13 +121,15 @@ numberButtons.forEach(id => {
 document.getElementById('bEqual').addEventListener('click', () => {
     if (firstNum !== null && operator !== null && currentDisplay !== '') {
         secondNum = parseFloat(currentDisplay);
-        const result = operate(firstNum, secondNum, operator);
-            .toString()
-            .slice(0, 10);
-        display.value = result;
+        let result = operate(firstNum, secondNum, operator);
+        if (typeof result === 'number') {
+            result = Number(result.toFixed(5));
+        }
+        setDisplay(result.toString());
         currentDisplay = result.toString();
         firstNum = null;
         operator = null;
+        resultJustDisplayed = true;
     }
 });
 
@@ -118,10 +137,25 @@ document.getElementById('bClear').addEventListener('click', () => {
     currentDisplay = '';
     firstNum = null;
     operator = null;
-    display.value = '';
+    setDisplay('');
 });
 
 document.getElementById('bDelete').addEventListener('click', () => {
-    currentDisplay = currentDisplay.slice(0, -1);
-    display.value = currentDisplay;
+    setDisplay(currentDisplay.slice(0, -1));
+});
+
+document.addEventListener('keydown', (event) => {
+    const key = event.key;
+
+    if (!isNaN(key)) {
+        numberToDisplay(key);
+    } else if (key === '.') {
+        numberToDisplay('.');
+    } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+        chosenOperator(key);
+    } else if (key === 'Enter' || key === '=') {
+        document.getElementById('bEqual').click();
+    } else if (key === 'Backspace') {
+        document.getElementById('bDelete').click();
+    }
 });
